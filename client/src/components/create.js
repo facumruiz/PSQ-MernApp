@@ -3,9 +3,9 @@ import { useNavigate } from "react-router";
 
 export default function Create() {
   const [form, setForm] = useState({
-    name: "",
-    position: "",
-    level: "",
+    fecha: "",
+    ejercicio: "",
+    t1:"", t2:"", t3:"", t4:"", t5:""
   });
   const navigate = useNavigate();
 
@@ -29,13 +29,12 @@ export default function Create() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newPerson),
-    })
-    .catch(error => {
+    }).catch((error) => {
       window.alert(error);
       return;
     });
 
-    setForm({ name: "", position: "", level: "" });
+    setForm({ fecha: "", ejercicio: "", t1:"", t2:"", t3:"", t4:"", t5:"" });
     navigate("/");
   }
 
@@ -50,8 +49,8 @@ export default function Create() {
             type="text"
             className="form-control"
             id="name"
-            value={form.name}
-            onChange={(e) => updateForm({ name: e.target.value })}
+            value={form.fecha}
+            onChange={(e) => updateForm({ fecha: e.target.value })}
           />
         </div>
         <div className="form-group">
@@ -60,10 +59,61 @@ export default function Create() {
             type="text"
             className="form-control"
             id="position"
-            value={form.position}
-            onChange={(e) => updateForm({ position: e.target.value })}
+            value={form.ejercico}
+            onChange={(e) => updateForm({ ejercicio: e.target.value })}
           />
         </div>
+        <div className="form-group">
+          <label htmlFor="position">Tiempo 1</label>
+          <input
+            type="text"
+            className="form-control"
+            id="position"
+            value={form.t1}
+            onChange={(e) => updateForm({ t1: e.target.value })}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="position">Tiempo 2</label>
+          <input
+            type="text"
+            className="form-control"
+            id="position"
+            value={form.t2}
+            onChange={(e) => updateForm({ t2: e.target.value })}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="position">Tiempo 3</label>
+          <input
+            type="text"
+            className="form-control"
+            id="position"
+            value={form.t3}
+            onChange={(e) => updateForm({ t3: e.target.value })}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="position">Tiempo 4</label>
+          <input
+            type="text"
+            className="form-control"
+            id="position"
+            value={form.t4}
+            onChange={(e) => updateForm({ t4: e.target.value })}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="position">Tiempo 5</label>
+          <input
+            type="text"
+            className="form-control"
+            id="position"
+            value={form.t5}
+            onChange={(e) => updateForm({ t5: e.target.value })}
+          />
+        </div>
+        {/* 
         <div className="form-group">
           <div className="form-check form-check-inline">
             <input
@@ -102,6 +152,7 @@ export default function Create() {
             <label htmlFor="positionSenior" className="form-check-label">Senior</label>
           </div>
         </div>
+      */}
         <div className="form-group">
           <input
             type="submit"

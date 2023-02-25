@@ -40,9 +40,13 @@ recordRoutes.route("/record/:id").get(function (req, res) {
 recordRoutes.route("/record/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
-    name: req.body.name,
-    position: req.body.position,
-    level: req.body.level,
+    fecha: req.body.fecha,
+    ejercicio: req.body.ejercicio,
+    t1: req.body.t1,
+    t2: req.body.t2,
+    t3: req.body.t3,
+    t4: req.body.t4,
+    t5: req.body.t5,
   };
   db_connect.collection("records").insertOne(myobj, function (err, res) {
     if (err) throw err;

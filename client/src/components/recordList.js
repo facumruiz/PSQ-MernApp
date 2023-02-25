@@ -1,14 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
+
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
 
 const Record = (props) => (
   <tr>
-    <td>{props.record.name}</td>
-    <td>{props.record.position}</td>
-    <td>{props.record.level}</td>
+    <td>{props.record.fecha}</td>
+    <td>{props.record.ejercicio}</td>
+    <td>{props.record.t1}</td>
+    <td>{props.record.t2}</td>
+    <td>{props.record.t3}</td>
+    <td>{props.record.t4}</td>
+    <td>{props.record.t5}</td>
     <td>
-      <Link className="btn btn-link" to={`/edit/${props.record._id}`}>Edit</Link> |
-      <button className="btn btn-link"
+      <Link className="btn btn-link" to={`/edit/${props.record._id}`}>
+        Edit
+      </Link>{" "}
+      |
+      <button
+        className="btn btn-link"
         onClick={() => {
           props.deleteRecord(props.record._id);
         }}
@@ -39,13 +50,13 @@ export default function RecordList() {
 
     getRecords();
 
-    return; 
+    return;
   }, [records.length]);
 
   // This method will delete a record
   async function deleteRecord(id) {
     await fetch(`http://localhost:5000/${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
 
     const newRecords = records.filter((el) => el._id !== id);
@@ -64,7 +75,8 @@ export default function RecordList() {
       );
     });
   }
-
+const data = records.map((d) => d)
+console.log(data)
   // This following section will display the table with the records of individuals.
   return (
     <div>
@@ -74,12 +86,37 @@ export default function RecordList() {
           <tr>
             <th>Fecha</th>
             <th>Ejercicio</th>
-            <th>Level</th>
-            <th>Action</th>
+            <th>t1</th>
+            <th>t2</th>
+            <th>t3</th>
+            <th>t4</th>
+            <th>t5</th>
           </tr>
         </thead>
         <tbody>{recordList()}</tbody>
       </table>
+      <div></div>
+
+        <BarChart
+          width={1000}
+          height={500}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="4 4" />
+          <XAxis  />
+          <YAxis type="number" domain={[0, 15]}/>
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="t1" fill="#8884d8" />
+        </BarChart>
+
+
     </div>
   );
 }
