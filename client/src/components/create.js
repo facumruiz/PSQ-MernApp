@@ -46,7 +46,7 @@ export default function Create() {
         <div className="form-group">
           <label htmlFor="name">Fecha</label>
           <input
-            type="text"
+            type="date"
             className="form-control"
             id="name"
             value={form.fecha}

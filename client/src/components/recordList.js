@@ -1,8 +1,28 @@
-import React, { useEffect, useState} from "react";
+import { react } from "plotly.js";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
+const getBarCharts = () => {
+  return [
+    <Bar dataKey="t1" fill="#82ca9d" />,
+    <Bar dataKey="t2" fill="#82ca9d" />,
+    <Bar dataKey="t3" fill="#82ca9d" />,
+    <Bar dataKey="t4" fill="#82ca9d" />,
+    <Bar dataKey="t5" fill="#82ca9d" />
+  ];
+};
 
 const Record = (props) => (
   <tr>
@@ -33,8 +53,10 @@ const Record = (props) => (
 export default function RecordList() {
   const [records, setRecords] = useState([]);
 
+
   // This method fetches the records from the database.
   useEffect(() => {
+
     async function getRecords() {
       const response = await fetch(`http://localhost:5000/record/`);
 
@@ -75,48 +97,106 @@ export default function RecordList() {
       );
     });
   }
-const data = records.map((d) => d)
-console.log(data)
+
+  const data = records.map((d) => d);
+  const t1 = records.map((d) => d);
+  //console.log(data);
+
+   console.log(data)
+
+
+
+
   // This following section will display the table with the records of individuals.
   return (
-    <div>
-      <h3>Record List</h3>
-      <table className="table table-striped" style={{ marginTop: 20 }}>
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Ejercicio</th>
-            <th>t1</th>
-            <th>t2</th>
-            <th>t3</th>
-            <th>t4</th>
-            <th>t5</th>
-          </tr>
-        </thead>
-        <tbody>{recordList()}</tbody>
-      </table>
-      <div></div>
+    <>
+      
+        <div>
+          <h3>Record List</h3>
+          <table className="table table-striped" style={{ marginTop: 20 }}>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Ejercicio</th>
+                <th>t1</th>
+                <th>t2</th>
+                <th>t3</th>
+                <th>t4</th>
+                <th>t5</th>
+              </tr>
+            </thead>
+            <tbody>{recordList()}</tbody>
+          </table>
+        </div>
+     
 
-        <BarChart
-          width={1000}
-          height={500}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
+      <ResponsiveContainer aspect={2} width="100%">
+        <BarChart data={data} margin={{}}>
           <CartesianGrid strokeDasharray="4 4" />
-          <XAxis  />
-          <YAxis type="number" domain={[0, 15]}/>
+          <XAxis dataKey="fecha" />
+          <YAxis type="number" domain={[0, 5]} />
           <Tooltip />
-          <Legend />
-          <Bar dataKey="t1" fill="#8884d8" />
+          <Legend
+            width={100}
+            wrapperStyle={{
+              top: 40,
+              right: 20,
+              backgroundColor: "#f5f5f5",
+              border: "1px solid #d5d5d5",
+              borderRadius: 3,
+              lineHeight: "40px",
+            }}
+          />
+          
+        {getBarCharts()}
         </BarChart>
+      </ResponsiveContainer>
 
+      {/*
+               <div class="row">
+        <div class="col" style={{ border: "1px solid rgba(0, 0, 0, 0.50)" }}>
+          <h1>GRAFICO 1</h1>
+          <ResponsiveContainer height={450} width={500}>
+            <BarChart data={data} margin={{}}>
+              <CartesianGrid strokeDasharray="4 4" />
+              <XAxis />
+              <YAxis type="number" domain={[0, 15]} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="t1" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <div class="col" style={{ border: "1px solid rgba(0, 0, 0, 0.50)" }}>
+          <h1>GRAFICO 2</h1>
+          <ResponsiveContainer height={450} width={500}>
+            <BarChart data={data} margin={{}}>
+              <CartesianGrid strokeDasharray="4 4" />
+              <XAxis />
+              <YAxis type="number" domain={[0, 15]} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="t2" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <div class="col" style={{ border: "1px solid rgba(0, 0, 0, 0.50)" }}>
+          <h1>GRAFICO 3</h1>
+          <ResponsiveContainer height={450} width={500}>
+            <BarChart data={data} margin={{}}>
+              <CartesianGrid strokeDasharray="4 4" />
+              <XAxis />
+              <YAxis type="number" domain={[0, 15]} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="t3" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
 
-    </div>
+  */}
+    </>
+           
   );
 }
